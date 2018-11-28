@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using StartupPlugins;
 
-namespace MDMWebApiTemplate
+namespace Budgetting
 {
   public class Program
   {

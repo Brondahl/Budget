@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using StartupPlugins;
 
-namespace MDMWebApiTemplate.Controllers
+namespace Budgetting.Controllers
 {
   /*
    * Demonstrates reading config for different environments.

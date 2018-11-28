@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace MDMWebApiTemplate.Exceptions
+namespace Budgetting.Exceptions
 {
   public class HttpStatusException : Exception
   {

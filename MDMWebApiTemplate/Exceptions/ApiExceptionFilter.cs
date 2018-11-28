@@ -1,5 +1,5 @@
 ﻿using System;
-using MDMWebApiTemplate.Exceptions;
+using Budgetting.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 

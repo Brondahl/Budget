@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Converters;
 using StartupPlugins;
 
-namespace MDMWebApiTemplate
+namespace Budgetting
 {
   public class Startup
   {

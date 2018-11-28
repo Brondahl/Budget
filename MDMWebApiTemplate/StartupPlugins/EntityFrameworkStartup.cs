@@ -1,4 +1,4 @@
-﻿using MDMWebApiTemplate.DbModels;
+﻿using Budgetting.DbModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,12 +14,12 @@ namespace StartupPlugins
       {
         //This sets up a transient in-memory DB. Useful for tests, perhaps?
         //Data is persisted whilst the API is running, but is lost when the API is restarted.
-        services.AddDbContext<MDMWebApiTemplateDbContext>(options => options.UseInMemoryDatabase("MDMWebApiTemplateDb"));
+        services.AddDbContext<BudgettingDbContext>(options => options.UseInMemoryDatabase("BudgettingDb"));
       }
       else
       {
-        var connectionString = config.GetConnectionString("MDMWebApiTemplateDbConn");
-        services.AddDbContext<MDMWebApiTemplateDbContext>(options => options.UseSqlServer(connectionString));
+        var connectionString = config.GetConnectionString("BudgettingDbConn");
+        services.AddDbContext<BudgettingDbContext>(options => options.UseSqlServer(connectionString));
       }
       return services;
     }
@@ -31,7 +31,7 @@ namespace StartupPlugins
       using (var scope = serviceScopeFactory.CreateScope())
       {
         var services = scope.ServiceProvider;
-        var dbContext = services.GetRequiredService<MDMWebApiTemplateDbContext>();
+        var dbContext = services.GetRequiredService<BudgettingDbContext>();
 
         dbContext.Database.Migrate();
       }

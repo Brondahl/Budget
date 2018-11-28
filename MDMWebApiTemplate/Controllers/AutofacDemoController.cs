@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MDMWebApiTemplate.Controllers
+namespace Budgetting.Controllers
 {
   /*
    * Demonstrates both automatic binding of all classes to their interface, and also the IEnumerable<> functionality in Autofac

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using MDMWebApiTemplate.Exceptions;
+using Budgetting.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MDMWebApiTemplate.Controllers
+namespace Budgetting.Controllers
 {
   /*
    * Demonstrates two notable forms of exception handling:

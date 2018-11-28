@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MDMWebApiTemplate.Controllers
+namespace Budgetting.Controllers
 {
   /*
    * Demonstrates that Enums are serialised to their enum names, rather than to the underlying int value.

@@ -16,7 +16,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "MDMWebApiTemplate": {
+    "Budgetting": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/values",

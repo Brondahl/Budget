@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace MDMWebApiTemplate.DbModels
+namespace Budgetting.DbModels
 {
-  public class MDMWebApiTemplateDbContext : DbContext
+  public class BudgettingDbContext : DbContext
   {
-    public MDMWebApiTemplateDbContext(DbContextOptions<MDMWebApiTemplateDbContext> options)
+    public BudgettingDbContext(DbContextOptions<BudgettingDbContext> options)
       : base(options)
     {
     }
