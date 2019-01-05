@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Budgetting.DbModels.Helpers;
 
 namespace Budgetting.DbModels.Budgets
 {
@@ -10,7 +11,7 @@ namespace Budgetting.DbModels.Budgets
   {
     public int Id { get; set; }
     public virtual BudgetMonth Month { get; set; }
-    public decimal Amount { get; set; }
+    [MoneyColumn] public decimal Amount { get; set; }
     public virtual Budget Budget { get; set; }
     public virtual BudgetCategory Category { get; set; }
     public string Description { get; set; }
