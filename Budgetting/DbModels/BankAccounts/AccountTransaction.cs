@@ -15,7 +15,7 @@ namespace Budgetting.DbModels.BankAccounts
     public string Description { get; set; }
     public string Type { get; set; }
     public decimal Amount { get; set; }
-    [Column(TypeName = "date")] public DateTime DateOfTransaction { get; set; }
-    [Column(TypeName = "date")] public DateTime DateOfImport { get; set; }
+    public DateTime DateOfTransaction { get; set; }
+    public DateTime DateOfImport { get; set; }
   }
 }
