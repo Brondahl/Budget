@@ -15,17 +15,24 @@ namespace Budgetting.Controllers
   [ApiController]
   public class EnvConfigTestController : ControllerBase
   {
-    private readonly SettingsTest config;
-    public EnvConfigTestController(IOptions<SettingsTest> config)
+    private readonly SettingsTest testConfig;
+    private readonly IConfiguration config;
+    public EnvConfigTestController(IOptions<SettingsTest> testConfig, IConfiguration generalConfig)
     {
-      this.config = config.Value;
+      this.testConfig = testConfig.Value;
+      this.config = generalConfig;
     }
 
-    // GET api/values
     [HttpGet("ShowConfigValues")]
     public ActionResult<string> Get()
     {
-      return $"Global: {config.SettingGlobal} | Per Env: {config.SettingPerEnv}";
+      return $"Global: {testConfig.SettingGlobal} | Per Env: {testConfig.SettingPerEnv}";
+    }
+
+    [HttpGet("ShowConnectionString")]
+    public ActionResult<string> GetCononString(string connectionName)
+    {
+      return $"ConnectionName: {connectionName} | ConnectionString: {config.GetConnectionString(connectionName)}";
     }
   }
 }
