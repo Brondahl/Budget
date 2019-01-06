@@ -53,11 +53,7 @@ namespace StartupPlugins
       }
       else // Other, unrecognised errors
       {
-#if !DEBUG
-        apiError.message = "An unhandled error occurred.";                
-#else
         apiError.PopulateFromException(exception);
-#endif
         statusCode = 500;
       }
 
