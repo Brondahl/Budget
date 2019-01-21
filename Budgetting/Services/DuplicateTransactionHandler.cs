@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Budgetting.Helpers;
-using TransactionList = System.Collections.Generic.List<Budgetting.DbModels.BankAccounts.AccountTransaction>;
 
 namespace Budgetting.Services
 {
@@ -109,21 +108,10 @@ namespace Budgetting.Services
     {
       return $@"
 Downloaded:
-{TransactionSetSummaryText(downloadedTxns)}
+{downloadedTxns.SummaryText()}
 
 Existing:
-{TransactionSetSummaryText(existingTxns)}
-";
-    }
-
-    private string TransactionSetSummaryText(TransactionList txns)
-    {
-      return
-$@"Count: {txns.Count}
-Discriminators: {txns.Select(txn => txn.IdenticalTransactionDiscriminator.ToString()).StringJoin(", ")}
-Accounts: {txns.Select(txn => txn.Account.Id.ToString()).Distinct().StringJoin(",")}
-Import Date Range: {txns.Select(txn => txn.DateOfImport).Min()} - {txns.Select(txn => txn.DateOfImport).Max()}
-Transaction Date Range: {txns.Select(txn => txn.DateOfTransaction).Min()} - {txns.Select(txn => txn.DateOfTransaction).Max()}
+{existingTxns.SummaryText()}
 ";
     }
   }

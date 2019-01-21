@@ -7,21 +7,21 @@ using Budgetting.Helpers;
 
 namespace Budgetting.Services
 {
-  public interface IAccountCredentials
-  {
-  }
+    public interface IAccountCredentials
+    {
+    }
 
-  public interface IAccountsService
-  {
-    IEnumerable<Account> GetAll();
-  }
+    public interface IAccountsService
+    {
+      IEnumerable<Account> GetAll();
+    }
 
-  public interface IAccountTransactionsService
-  {
-    List<AccountTransaction> GetMostRecentTransactionForEachAccount();
-    List<AccountTransaction> GetAllTransactionsSince(DateTime startDate);
-    void SaveNewTransactions(List<AccountTransaction> newlyImportedTxs);
-    void RecordTransactionsForUserAttention(List<AccountTransaction> newlyImportedTxs);
-    void UpdateExistingTransaction(AccountTransaction existingTxnToUpdate);
-  }
+    public interface IAccountTransactionsService
+    {
+      TransactionList GetMostRecentTransactionForEachAccount();
+      TransactionList GetAllTransactionsSince(DateTime startDate);
+      void SaveNewTransactions(TransactionList newlyImportedTxs);
+      void RecordTransactionsForUserAttention(TransactionList newlyImportedTxs);
+      void UpdateExistingTransaction(AccountTransaction existingTxnToUpdate);
+    }
 }
