@@ -4,18 +4,18 @@ namespace Budgetting.Services.Downloaders
 {
   public interface IDownloaderRepository
   {
-    IEnumerable<ITransactionDownloader> GetAll();
+    IEnumerable<IWebPortalTransactionDownloader> GetAll();
   }
 
   public class DownloaderRepository : IDownloaderRepository
   {
-    private readonly IEnumerable<ITransactionDownloader> downloaders;
-    public DownloaderRepository(IEnumerable<ITransactionDownloader> codedDownloaders) // Bound by Autofac magic
+    private readonly IEnumerable<IWebPortalTransactionDownloader> downloaders;
+    public DownloaderRepository(IEnumerable<IWebPortalTransactionDownloader> codedDownloaders) // Bound by Autofac magic
     {
       downloaders = codedDownloaders;
     }
 
-    public IEnumerable<ITransactionDownloader> GetAll()
+    public IEnumerable<IWebPortalTransactionDownloader> GetAll()
     {
       return downloaders;
     }

@@ -28,7 +28,7 @@ namespace Budgetting.Services
       this.duplicateHandler = duplicateHandler;
     }
 
-    public void BeginDrawdown(IAccountCredentials credentials)
+    public void BeginDrawdown(IAccountCredentials allCredentials)
     {
       var txDownloaders = downloaders.GetAll();
       var earliestLoadDate = DateTime.MaxValue;
@@ -38,16 +38,36 @@ namespace Budgetting.Services
       {
         var loadDate = downloader.DetermineLoadDate(txnService);
         earliestLoadDate = loadDate < earliestLoadDate ? loadDate : earliestLoadDate;
-        allDownloadedTxns.AddRange(downloader.GetAllNewTransactions(credentials, loadDate));
+        allDownloadedTxns.AddRange(downloader.GetAllNewTransactions(allCredentials, loadDate));
       }
-      
+
       var existingRecentTxns = txnService.GetAllTransactionsSince(earliestLoadDate.AddMonths(-1));
       duplicateHandler.SynchroniseDistinguishedDuplicates(allDownloadedTxns, existingRecentTxns);
+
+      ConfirmTransactionOverlap(allDownloadedTxns, existingRecentTxns);
       var newTxnsImported = IdentifyNewTransactions(allDownloadedTxns, existingRecentTxns).ToList();
       var surpiseTxns = IdentifySurpriseTransactions(newTxnsImported, existingRecentTxns);
 
       txnService.SaveNewTransactions(newTxnsImported.ToList());
       txnService.RecordTransactionsForUserAttention(surpiseTxns.ToList());
+    }
+
+    private void ConfirmTransactionOverlap(TransactionList allDownloadedTxns, TransactionList existingRecentTxns)
+    {
+      var downloadedHashesByAcc = allDownloadedTxns.ToLookup(txn => txn.Account, txn => txn.GloballyUniqueHash);
+      var existingHashesByAcc = existingRecentTxns.ToLookup(txn => txn.Account, txn => txn.GloballyUniqueHash);
+
+      foreach (var downloadedHashesForAccount in downloadedHashesByAcc)
+      {
+        var account = downloadedHashesForAccount.Key;
+        var existingHashesForAccount = existingHashesByAcc[account].ToHashSet();
+
+        var hashSetsForAccountOverlap = Enumerable.Intersect(downloadedHashesForAccount, existingHashesForAccount).Any();
+        if (!hashSetsForAccountOverlap)
+        {
+          throw new Exception($"Transactions downloaded for Account '{account.Name}' did not overlap with existing Transactions");
+        }
+      }
     }
 
     private IEnumerable<AccountTransaction> IdentifyNewTransactions(TransactionList allDownloadedTxns, TransactionList existingRecentTxns)
