@@ -7,14 +7,37 @@ namespace Budgetting.Services.Downloaders.TSB
 {
   public class TsbPortalDriver : IWebPortalDriver<TsbCredentials>
   {
-    public void GoToHomePage()
-    {
-      throw new NotImplementedException();
-    }
-
     public void Login(TsbCredentials credentials)
     {
-      throw new NotImplementedException();
+      GoToSiteLoginPage();
+      WaitForPageLoad();
+
+      EnterUserName(credentials.UserName);
+      EnterPassword(credentials.Password);
+      ClickLogin();
+      WaitForPageLoad();
+
+      var passCodeIndexes = ReadPassCodeSelection();
+      EnterPassCodeSelection(passCodeIndexes, credentials.PassCode);
+      ClickLogin();
+      WaitForPageLoad();
+
+      VerifyLoggedInOnHomePage();
     }
+
+    public void GoToHomePage()
+    {
+      var button = LocateReturnToHomePageButton();
+      if (button != null)
+      {
+        Click(button);
+      }
+      else
+      {
+        throw new NotImplementedException();
+      }
+      VerifyLoggedInOnHomePage();
+    }
+
   }
 }
