@@ -9,6 +9,7 @@ namespace Budgetting.Services
 {
   public interface IAccountCredentials
   {
+    string this[string indexer] { get; }
   }
 
   public interface IAccountsService
