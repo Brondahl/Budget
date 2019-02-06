@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -31,6 +32,8 @@ OK
       var dir1 = Environment.CurrentDirectory;
       var dir2 = Directory.GetCurrentDirectory();
       IWebDriver driver = new ChromeDriver();
+      IWebDriver driver2 = new ChromeDriver(Path.GetDirectoryName(Assembly.GetAssembly(typeof(Class1)).Location));
+      IWebDriver driver3 = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
       Thread.Sleep(2500);
       driver.Url = "http://www.google.com";
       Thread.Sleep(2500);
