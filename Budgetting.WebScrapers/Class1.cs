@@ -29,11 +29,14 @@ OK
   {
     public string OpenGoogle()
     {
+      var thisDllLocation = Path.GetDirectoryName(Assembly.GetAssembly(this.GetType()).Location);
+      var webDriverExeLocations = Path.Combine(thisDllLocation, "WebDriverExes");
       var dir1 = Environment.CurrentDirectory;
       var dir2 = Directory.GetCurrentDirectory();
-      IWebDriver driver = new ChromeDriver();
-      IWebDriver driver2 = new ChromeDriver(Path.GetDirectoryName(Assembly.GetAssembly(typeof(Class1)).Location));
-      IWebDriver driver3 = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+      var dir4 = Assembly.GetExecutingAssembly().Location;
+
+
+      IWebDriver driver = new ChromeDriver(webDriverExeLocations);
       Thread.Sleep(2500);
       driver.Url = "http://www.google.com";
       Thread.Sleep(2500);
@@ -42,7 +45,7 @@ OK
       driver.Close();
 
       Thread.Sleep(2500);
-      driver = new FirefoxDriver();
+      driver = new FirefoxDriver(webDriverExeLocations);
       Thread.Sleep(2500);
       driver.Url = "http://www.google.com";
       Thread.Sleep(2500);
