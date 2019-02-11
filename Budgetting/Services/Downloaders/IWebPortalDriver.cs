@@ -4,5 +4,6 @@
   {
     void Login(TCredentials credentials);
     void GoToHomePage();
+    void VerifyLoggedInOnHomePage();
   }
 }

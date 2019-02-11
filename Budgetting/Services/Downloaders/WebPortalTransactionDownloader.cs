@@ -43,6 +43,7 @@ namespace Budgetting.Services.Downloaders
       foreach (var singleAccountDownloader in InternalDownloaders)
       {
         WebPortalDriver.GoToHomePage();
+        WebPortalDriver.VerifyLoggedInOnHomePage();
         var txns = singleAccountDownloader.FetchAllTransactions(WebPortalDriver, startDate);
         MarkHashCollisionsAsNotDuplicates(txns);
         allDownloadedTxns.AddRange(txns);

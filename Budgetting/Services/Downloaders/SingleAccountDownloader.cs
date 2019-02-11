@@ -8,5 +8,6 @@ namespace Budgetting.Services.Downloaders
   {
     public abstract Account Account { get; }
     public abstract List<AccountTransaction> FetchAllTransactions(TWebPortalDriver driver, DateTime startDate);
+    public abstract decimal GetCurrentBalance(TWebPortalDriver driver);
   }
 }
