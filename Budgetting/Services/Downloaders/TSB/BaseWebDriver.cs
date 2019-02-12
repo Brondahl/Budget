@@ -2,7 +2,7 @@
 
 namespace Budgetting.Services.Downloaders.TSB
 {
-  internal class BaseWebDriver
+  public class BaseWebDriver
   {
     protected object CurrentPage;
     protected void ClickButton(string cssSelector)

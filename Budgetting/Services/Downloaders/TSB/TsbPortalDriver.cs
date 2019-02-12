@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace Budgetting.Services.Downloaders.TSB
 {
-  public class TsbPortalDriver : IWebPortalDriver<TsbCredentials>, BaseWebDriver
+  public class TsbPortalDriver : BaseWebDriver, IWebPortalDriver<TsbCredentials>
   {
-    private object CurrentPage;
     public void Login(TsbCredentials credentials)
     {
       GoToSiteLoginPage();
@@ -51,11 +50,16 @@ namespace Budgetting.Services.Downloaders.TSB
       var passCodeIndexes = new int[3];
       var memorableDataForm = "form[name=memorableInformationForm]";
 
-      var indexInstructions = "";
+      var indexInstructions = ".memorable-information-select-size span";
+      var indexInstructionsText = new string[3];
+
       for (int i = 0; i < 2; i++)
       {
-        var ithIndexInstruction = indexInstructions[i]; 
-        passCodeIndexes[i] = ithIndexInstruction;
+        //"Character xx:"
+        var ithIndexInstruction = indexInstructionsText[i];
+        var matchingRegex = new Regex(@"Character (\d*):");
+        var ithIndexString = matchingRegex.Match(ithIndexInstruction).Captures.Single().Value;
+        passCodeIndexes[i] = int.Parse(ithIndexString);
       }
 
       return passCodeIndexes;
@@ -77,6 +81,8 @@ namespace Budgetting.Services.Downloaders.TSB
 
     private object[] GetMemorableInformationInputs()
     {
+      var selectCssSelectors = new[] { "X", "Y", "Z" }.Select(index => $"select#char{index}Pos");
+
       throw new NotImplementedException();
     }
 
