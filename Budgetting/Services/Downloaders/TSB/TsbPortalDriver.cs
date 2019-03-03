@@ -2,11 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using OpenQA.Selenium;
 
 namespace Budgetting.Services.Downloaders.TSB
 {
   public class TsbPortalDriver : BaseWebDriver, IWebPortalDriver<TsbCredentials>
   {
+    public TsbPortalDriver(IWebDriver driver) : base(driver) { }
+    public void TestIndexEntry(TsbCredentials credentials)
+    {
+      CurrentPage.Url = @"file:///C:/Work/Budget/Bank%20pages/TSB/Login.html#";
+      System.Threading.Thread.Sleep(2500);//WaitForPageLoad();
+
+      var passCodeIndexes = ReadPassCodeSelection();
+      EnterPassCodeSelection(passCodeIndexes, credentials.PassCode);
+      ClickContinue_Mem();
+      //WaitForPageLoad();
+
+      VerifyLoggedInOnHomePage();
+    }
+
     public void Login(TsbCredentials credentials)
     {
       GoToSiteLoginPage();
@@ -19,7 +34,7 @@ namespace Budgetting.Services.Downloaders.TSB
 
       var passCodeIndexes = ReadPassCodeSelection();
       EnterPassCodeSelection(passCodeIndexes, credentials.PassCode);
-      //ClickLogin();
+      ClickContinue_Mem();
       //WaitForPageLoad();
 
       VerifyLoggedInOnHomePage();
@@ -27,7 +42,7 @@ namespace Budgetting.Services.Downloaders.TSB
 
     private void GoToSiteLoginPage()
     {
-      CurrentPage = "https://internetbanking.tsb.co.uk/personal/logon/login/#/login";
+      CurrentPage.Url = @"https://internetbanking.tsb.co.uk/personal/logon/login/#/login";
     }
 
     private void EnterUserName(string credentialsUserName)
@@ -43,6 +58,11 @@ namespace Budgetting.Services.Downloaders.TSB
     private void ClickContinue()
     {
       var continueButton = "form[name=loginForm] button.login";
+    }
+
+    private void ClickContinue_Mem()
+    {
+      var continueButton = "form[name=memorableInformationForm] button[type=submit]";
     }
 
     private int[] ReadPassCodeSelection()
