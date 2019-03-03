@@ -1,18 +1,32 @@
 ﻿using System;
+using System.Linq;
+using Budgetting.Helpers;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace Budgetting.Services.Downloaders.TSB
 {
-  public class BaseWebDriver
+  public abstract class BaseWebDriver
   {
-    protected object CurrentPage;
+    protected BaseWebDriver(IWebDriver driver) { CurrentPage = driver; }
+    protected IWebDriver CurrentPage;
+
     protected void ClickButton(string cssSelector)
+    {
+      var clickableElement = FindElementWithExpectation(cssSelector, "button", "a");
+      clickableElement.Click();
+    }
+
+    protected void FillSimpleTextInput(string cssSelector, string textToEnter)
     {
       throw new NotImplementedException();
     }
 
-    protected void FillSimpleTextInput(string textToEnter, string cssSelector)
+    protected void SetDropdown(string cssSelector, string textToEnter)
     {
-      throw new NotImplementedException();
+      var selectElement = FindElementWithExpectation(cssSelector, "select");
+      var selectObject = new SelectElement(selectElement);
+      selectObject.SelectByText(textToEnter);
     }
 
     protected void WaitForPageToLoad(string url, string identifyingCssSelector)
@@ -20,5 +34,24 @@ namespace Budgetting.Services.Downloaders.TSB
       throw new NotImplementedException();
     }
 
+    private IWebElement FindElementWithExpectation(string cssSelector, params string[] expectedTagNames)
+    {
+      var element = FindElementWithExpectation(cssSelector, "select");
+
+      if (element == null)
+      {
+        throw new Exception($"No element found matching selector: '{cssSelector}'");
+      }
+
+      if (!expectedTagNames.Contains(element.TagName))
+      {
+        throw new Exception(
+$@"Element found was not the expected type.
+Selector: '{cssSelector}'.
+Expected Tags: '{expectedTagNames.StringJoin(",")}'.
+Element: '{element.ToString()}'.");
+      }
+      return element;
+    }
   }
 }
