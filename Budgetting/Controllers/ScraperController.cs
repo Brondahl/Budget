@@ -20,17 +20,13 @@ namespace Budgetting.Controllers
     [HttpGet("Google")]
     public ActionResult Test()
     {
-      return Ok(new Class1().OpenGoogle());
+      return Ok(SeleniumExtensions.OpenGoogle());
     }
     [HttpGet("DropdownsOnFile")]
     public ActionResult DropdownsOnFile()
     {
-      var thisDllLocation = Path.GetDirectoryName(Assembly.GetAssembly(this.GetType()).Location);
-      var webDriverExeLocations = Path.Combine(thisDllLocation, "WebDriverExes");
-      IWebDriver driver = new ChromeDriver(webDriverExeLocations);
-
-      new TsbPortalDriver(driver).TestIndexEntry(new TsbCredentials {PassCode = "abcdefg".ToCharArray()});
-      return Ok(new Class1().OpenGoogle());
+      new TsbPortalDriver(new WebDriverFactory()).TestIndexEntry(new TsbCredentials {PassCode = "abcdefg".ToCharArray()});
+      return Ok();
     }
   }
 }

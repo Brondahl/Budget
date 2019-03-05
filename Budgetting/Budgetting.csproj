@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Budgetting.Common\Budgetting.Common.csproj" />
     <ProjectReference Include="..\Budgetting.WebScrapers\Budgetting.WebScrapers.csproj" />
   </ItemGroup>
 

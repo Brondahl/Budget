@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Reflection;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -17,7 +18,7 @@ namespace Budgetting.WebScrapers
     IWebDriver Build(Browser browser);
   }
 
-  public class WebDriverFactory
+  public class WebDriverFactory : IWebDriverFactory
   {
     public IWebDriver Build(Browser browser)
     {
@@ -28,6 +29,7 @@ namespace Budgetting.WebScrapers
       {
         case Browser.Firefox: return new FirefoxDriver(webDriverExeLocations);
         case Browser.Chrome: return new ChromeDriver(webDriverExeLocations);
+        default: throw new Exception("Invalid enum. qq use template Exception.");
       }
     }
   }

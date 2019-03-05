@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Budgetting.DbModels.BankAccounts;
+using Budgetting.WebScrapers;
 
 namespace Budgetting.Services.Downloaders.TSB
 {

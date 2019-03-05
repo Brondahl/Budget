@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Budgetting.Common;
 using Budgetting.Helpers;
 using TransactionList = System.Collections.Generic.List<Budgetting.DbModels.BankAccounts.AccountTransaction>;
 

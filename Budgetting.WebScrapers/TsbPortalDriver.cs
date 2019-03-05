@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using OpenQA.Selenium;
 
-namespace Budgetting.Services.Downloaders.TSB
+namespace Budgetting.WebScrapers
 {
   public interface ITsbPortalDriver : IWebPortalDriver<TsbCredentials>
   {
@@ -13,7 +12,7 @@ namespace Budgetting.Services.Downloaders.TSB
 
   public class TsbPortalDriver : BaseWebDriver, ITsbPortalDriver
   {
-    public TsbPortalDriver(IWebDriver driver) : base(driver) { }
+    public TsbPortalDriver(IWebDriverFactory factory) : base(factory) { }
     public void TestIndexEntry(TsbCredentials credentials)
     {
       CurrentPage.Url = @"file:///C:/Work/Budget/Bank%20pages/TSB/Login.html#";
@@ -73,17 +72,17 @@ namespace Budgetting.Services.Downloaders.TSB
     private int[] ReadPassCodeSelection()
     {
       var passCodeIndexes = new int[3];
-      var memorableDataForm = "form[name=memorableInformationForm]";
+      var memorableDataForm = CurrentPage.FindByCss("form[name=memorableInformationForm]");
 
-      var indexInstructions = ".memorable-information-select-size span";
-      var indexInstructionsText = new string[3];
+      var indexInstructions = memorableDataForm.FindMultipelByCss(".memorable-information-select-size span");
+      var indexInstructionsText = indexInstructions.Select(el => el.Text).ToArray();
 
-      for (int i = 0; i < 2; i++)
+      for (int i = 0; i < 3; i++)
       {
         //"Character xx:"
         var ithIndexInstruction = indexInstructionsText[i];
         var matchingRegex = new Regex(@"Character (\d*):");
-        var ithIndexString = matchingRegex.Match(ithIndexInstruction).Captures.Single().Value;
+        var ithIndexString = matchingRegex.Match(ithIndexInstruction).Groups.Last().Value;
         passCodeIndexes[i] = int.Parse(ithIndexString);
       }
 

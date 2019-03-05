@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Reflection;
 using System.Threading;
@@ -25,11 +26,20 @@ OK
     Probably none of this will work on Azure.
     Chrome seems to know it's being controlled by Selenium.
      */
-  public class Class1
+  public static class SeleniumExtensions
   {
-    public string OpenGoogle()
+    public static IWebElement FindByCss(this ISearchContext searchable, string cssSelector)
     {
-      var thisDllLocation = Path.GetDirectoryName(Assembly.GetAssembly(this.GetType()).Location);
+      return searchable.FindElement(By.CssSelector(cssSelector));
+    }
+    public static ReadOnlyCollection<IWebElement> FindMultipelByCss(this ISearchContext searchable, string cssSelector)
+    {
+      return searchable.FindElements(By.CssSelector(cssSelector));
+    }
+
+    public static string OpenGoogle()
+    {
+      var thisDllLocation = Path.GetDirectoryName(Assembly.GetAssembly(typeof(SeleniumExtensions)).Location);
       var webDriverExeLocations = Path.Combine(thisDllLocation, "WebDriverExes");
       var dir1 = Environment.CurrentDirectory;
       var dir2 = Directory.GetCurrentDirectory();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Budgetting.DbModels.BankAccounts;
+using Budgetting.WebScrapers;
 using TransactionList = System.Collections.Generic.List<Budgetting.DbModels.BankAccounts.AccountTransaction>;
 
 namespace Budgetting.Services.Downloaders

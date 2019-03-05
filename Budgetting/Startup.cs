@@ -56,9 +56,7 @@ namespace Budgetting
     public void ConfigureContainer(ContainerBuilder builder)
     {
       builder.RegisterAssemblyTypes(typeof(Startup).Assembly).AsImplementedInterfaces().PreserveExistingDefaults();
-      builder.RegisterAssemblyTypes(typeof(Budgetting.WebScrapers.Class1).Assembly).AsImplementedInterfaces().PreserveExistingDefaults();
-
-      builder.RegisterType<IWebDriver>()
+      builder.RegisterAssemblyTypes(typeof(Budgetting.WebScrapers.SeleniumExtensions).Assembly).AsImplementedInterfaces().PreserveExistingDefaults();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

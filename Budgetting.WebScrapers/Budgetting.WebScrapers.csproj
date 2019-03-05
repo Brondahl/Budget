@@ -10,6 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Budgetting.Common\Budgetting.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="WebDriverExes\chromedriver.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

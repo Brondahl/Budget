@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace Budgetting.Helpers
+namespace Budgetting.Common
 {
   public static class MiscUtilities
   {
@@ -17,5 +16,10 @@ namespace Budgetting.Helpers
       return set.StringJoin(Environment.NewLine);
     }
 
+    public static bool In<T>(this T value, params T[] collection) => value.In(collection.ToList());
+    public static bool In<T>(this T value, IEnumerable<T> collection)
+    {
+      return collection.Contains(value);
+    }
   }
 }

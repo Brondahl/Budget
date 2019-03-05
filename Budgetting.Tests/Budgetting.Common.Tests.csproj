@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Budgetting\Budgetting.csproj" />
+    <ProjectReference Include="..\Budgetting.Common\Budgetting.Common.csproj" />
   </ItemGroup>
 
 </Project>

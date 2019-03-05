@@ -1,4 +1,4 @@
-﻿namespace Budgetting.Services
+﻿namespace Budgetting.WebScrapers
 {
   public interface IWebPortalDriver<in TCredentials>
   {
