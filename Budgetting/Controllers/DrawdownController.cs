@@ -15,8 +15,14 @@ namespace Budgetting.Controllers
   [ApiController]
   public class DrawdownController : ControllerBase
   {
-    private IDrawdownService drawdown;
-    private ICredentialsService credentialsService;
+    private readonly IDrawdownService drawdown;
+    private readonly ICredentialsService credentialsService;
+
+    public DrawdownController(IDrawdownService drawdown, ICredentialsService credentialsService)
+    {
+      this.drawdown = drawdown;
+      this.credentialsService = credentialsService;
+    }
 
     [HttpPost]
     //qq Make this Async with UI Updates - SignalR.

@@ -4,9 +4,11 @@ using System.Threading.Tasks;
 
 namespace Budgetting.Services.Downloaders.TSB
 {
-  public class TsbMikeDownloader : WebPortalTransactionDownloader<TsbCredentials, TsbPortalDriver>
+  public class TsbMikeDownloader : WebPortalTransactionDownloader<TsbCredentials, ITsbPortalDriver>
   {
-    protected override IEnumerable<SingleAccountDownloader<TsbPortalDriver>> InternalDownloaders
+    public TsbMikeDownloader(ITsbPortalDriver tsbDriver) : base(tsbDriver) { }
+
+    protected override IEnumerable<SingleAccountDownloader<ITsbPortalDriver>> InternalDownloaders
     {
       get
       {

@@ -14,8 +14,13 @@ namespace Budgetting.Services.Downloaders
 
   public abstract class WebPortalTransactionDownloader<TCredentials, TWebPortalDriver> : IWebPortalTransactionDownloader
     where TCredentials : class
-    where TWebPortalDriver : IWebPortalDriver<TCredentials>, new()
+    where TWebPortalDriver : IWebPortalDriver<TCredentials>
   {
+    protected WebPortalTransactionDownloader(TWebPortalDriver dedicatedDriver)
+    {
+      WebPortalDriver = dedicatedDriver;
+    }
+
     protected abstract IEnumerable<SingleAccountDownloader<TWebPortalDriver>> InternalDownloaders { get; }
     protected abstract TCredentials LoadSpecificCredentials(IAccountCredentials credentials);
 
@@ -28,7 +33,7 @@ namespace Budgetting.Services.Downloaders
         .AddDays(-10);
     }
 
-    protected TWebPortalDriver WebPortalDriver = new TWebPortalDriver();
+    protected TWebPortalDriver WebPortalDriver;
     protected IEnumerable<Account> AccountsToDownload
     {
       get { return InternalDownloaders.Select(dl => dl.Account); }

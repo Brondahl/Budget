@@ -4,16 +4,16 @@ using Budgetting.DbModels.BankAccounts;
 
 namespace Budgetting.Services.Downloaders.TSB
 {
-  public class TsbMortgageDownloader : SingleAccountDownloader<TsbPortalDriver>
+  public class TsbMortgageDownloader : SingleAccountDownloader<ITsbPortalDriver>
   {
     public override Account Account => KnownAccounts.TsbMortgage;
 
-    public override List<AccountTransaction> FetchAllTransactions(TsbPortalDriver driver, DateTime startDate)
+    public override List<AccountTransaction> FetchAllTransactions(ITsbPortalDriver driver, DateTime startDate)
     {
       return new List<AccountTransaction>();
     }
 
-    public override decimal GetCurrentBalance(TsbPortalDriver driver)
+    public override decimal GetCurrentBalance(ITsbPortalDriver driver)
     {
       throw new NotImplementedException();
     }

@@ -14,15 +14,15 @@ namespace Budgetting.Services.Downloaders.TSB
     public override Account Account => KnownAccounts.MikeTsbCreditCard;
   }
 
-  public abstract class TsbCreditCardDownloader : SingleAccountDownloader<TsbPortalDriver>
+  public abstract class TsbCreditCardDownloader : SingleAccountDownloader<ITsbPortalDriver>
   {
-    public override List<AccountTransaction> FetchAllTransactions(TsbPortalDriver driver, DateTime startDate)
+    public override List<AccountTransaction> FetchAllTransactions(ITsbPortalDriver driver, DateTime startDate)
     {
       driver.VerifyLoggedInOnHomePage();
       throw new NotImplementedException();
     }
 
-    public override decimal GetCurrentBalance(TsbPortalDriver driver)
+    public override decimal GetCurrentBalance(ITsbPortalDriver driver)
     {
       driver.VerifyLoggedInOnHomePage();
       throw new NotImplementedException();

@@ -6,7 +6,12 @@ using OpenQA.Selenium;
 
 namespace Budgetting.Services.Downloaders.TSB
 {
-  public class TsbPortalDriver : BaseWebDriver, IWebPortalDriver<TsbCredentials>
+  public interface ITsbPortalDriver : IWebPortalDriver<TsbCredentials>
+  {
+    void TestIndexEntry(TsbCredentials credentials);
+  }
+
+  public class TsbPortalDriver : BaseWebDriver, ITsbPortalDriver
   {
     public TsbPortalDriver(IWebDriver driver) : base(driver) { }
     public void TestIndexEntry(TsbCredentials credentials)

@@ -1,14 +1,23 @@
 ﻿using System;
 using System.Linq;
 using Budgetting.Helpers;
+using Budgetting.WebScrapers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+
+namespace Budgetting.WebScrapers
+{
+  public interface IWebDriverFactory
+  {
+
+  }
+}
 
 namespace Budgetting.Services.Downloaders.TSB
 {
   public abstract class BaseWebDriver
   {
-    protected BaseWebDriver(IWebDriver driver) { CurrentPage = driver; }
+    protected BaseWebDriver(IWebDriverFactory driverFactory) { CurrentPage = driver; }
     protected IWebDriver CurrentPage;
 
     protected void ClickButton(string cssSelector)

@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Converters;
+using OpenQA.Selenium;
 using StartupPlugins;
 
 namespace Budgetting
@@ -54,7 +55,10 @@ namespace Budgetting
     /// <seealso cref="https://github.com/aspnet/Hosting/blob/rel/1.1.0/src/Microsoft.AspNetCore.Hosting/Internal/StartupLoader.cs"/>
     public void ConfigureContainer(ContainerBuilder builder)
     {
-      builder.RegisterAssemblyTypes(typeof(Startup).Assembly).AsImplementedInterfaces();
+      builder.RegisterAssemblyTypes(typeof(Startup).Assembly).AsImplementedInterfaces().PreserveExistingDefaults();
+      builder.RegisterAssemblyTypes(typeof(Budgetting.WebScrapers.Class1).Assembly).AsImplementedInterfaces().PreserveExistingDefaults();
+
+      builder.RegisterType<IWebDriver>()
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
